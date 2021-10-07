@@ -1,0 +1,42 @@
+#!/bin/bash
+# Dwi
+# Script to get configuration dest
+# copy this script to /var/squidGuard/db/blacklists/
+# run : bash squid-conf
+# file configuration result in hasil.txt
+
+
+ls -1 > hosts
+
+for i in `cat hosts`
+do
+A=`ls -1 $i |grep -v ".db"|wc -l`
+
+if [ $A -eq 3 ]
+then
+cat >>hasil.txt << EOF
+dest $i {
+        domainlist      $i/domains
+        expressionlist  $i/expressions
+        urllist         $i/urls
+}
+EOF
+elif [ $A -eq 2 ]
+then
+cat >>hasil.txt << EOF
+dest $i {
+        domainlist      $i/domains
+        urllist         $i/urls
+}
+EOF
+
+else
+
+cat >>hasil.txt << EOF
+dest $i {
+        domainlist      $i/domains
+}
+EOF
+
+fi 
+done

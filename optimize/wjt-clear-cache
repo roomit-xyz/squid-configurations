@@ -1,0 +1,10 @@
+#!/bin/bash 
+# Dwi
+# Clear cache ram
+
+sync;
+echo 3 > /proc/sys/vm/drop_caches
+
+RAM=`free -m | grep Mem | awk -F" " '{print $4}'`
+
+echo "`date` BERSIH, free RAM $RAM MB " >> /var/log/cron.log

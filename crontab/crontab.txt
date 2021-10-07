@@ -1,0 +1,31 @@
+MAILTO=""
+*/2 * * * * 	/usr/sbin/ntpdate -u 10.32.16.237
+55 23 * * *     /usr/bin/sarg -x
+
+#### CHECK OPTIMIZE CACHE RAM ######
+* * * * *       /usr/bin/wjt-check-ram
+* * * * *       /usr/bin/wjt-check-children
+
+
+#### SCHEDULE AUTOMATIC OPTIMIZE CACHE RAM #####
+### MALAM ###
+58 23 * * *     /usr/bin/wjt-clear-cache
+59 23 * * *     /usr/bin/wjt-check-children
+
+### SIANG ###
+30 12 * * *     /usr/bin/wjt-clear-cache
+33 12 * * *     /usr/bin/wjt-check-children
+
+### PAGI ###
+30 8 * * *     /usr/bin/wjt-clear-cache
+33 8 * * *     /usr/bin/wjt-check-children
+
+
+#### SNMP PERFORMANCE SERVER MONITORING ####
+*/5 * * * *	/etc/snmp/local-snmp-cronjob > /dev/null 2>&1
+*/10 * * * *	/etc/snmp/vmstat-cron /var/local/snmp/vmstat
+*/10 * * * *	/etc/snmp/iostat-cron /var/local/snmp/iostat
+
+
+#### INTEGRITY FILE #####
+12 1 * * * /usr/local/sbin/samhain -t

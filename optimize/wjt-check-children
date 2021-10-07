@@ -1,0 +1,14 @@
+#!/bin/bash
+# Dwi 
+# Check children
+
+STATUS=`ps -ef | grep squidGuard |grep -v grep | wc -l`
+
+
+if [ $STATUS -gt 23 ]
+then
+    echo "`date` squidguard RELOAD" >> /var/log/cron.log
+    /etc/init.d/squid reload
+else
+    echo "`date` squidguard AMAN" >> /var/log/cron.log
+fi

@@ -1,0 +1,15 @@
+#!/bin/bash
+# Dwi
+# Clear cache ram
+
+
+CHECK_FREE=`free -m | grep Mem | awk -F" " '{print $4}' | tr -d " "`
+RAM=`free -m | grep Mem | awk -F" " '{print $4}'`
+
+if [ $CHECK_FREE -lt 240 ]
+then
+echo "`date` BAHAYA, free RAM : $RAM MB " >> /var/log/cron.log
+/usr/bin/wjt-clear-cache
+else
+echo "`date` AMAN, free RAM : $RAM MB " >> /var/log/cron.log
+fi
